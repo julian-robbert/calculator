@@ -10,12 +10,66 @@ body{
     justify-content: center;
     align-items: center;
 }
+
 #calculatorContainer{
     border: 2px solid black;
     border-radius: 15px;
-    padding: 15px;
-    height: 450px;
+    padding: 20px;
+    height: 500px;
     width: 350px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    background-color: #114B5F;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+
+#displayContainer{
+    height: 100px;
+}
+
+#displayContainer, button{
+    border: 2px solid black;
+    border-radius: 7px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+button{
+    font-size: 24px;
+}
+
+.operatorButton{
+    background-color: #f45b69;
+}
+
+#displayContainer{
+    font-size: 36px;
+}
+
+#clearAndDeleteContainer{
+    height: 70px;
+    gap: 10px;
+}
+
+#rowOneContainer,
+#rowTwoContainer,
+#rowThreeContainer,
+#rowFourContainer
+{
+    height: 70px;
+    gap: 10px;
+}
+
+#clearButton,
+#deleteButton
+{
+    width: 186.5px;
+}
+
+.smallButton{
+    width: 90px;
 }
