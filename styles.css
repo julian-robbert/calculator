@@ -7,8 +7,10 @@ body{
     overflow: auto;
     margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: rgb(245, 245, 245);
 }
 
 #calculatorContainer{
@@ -20,7 +22,8 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #114B5F;
+    background-color: #c6d2ed;
+    box-shadow: 0 0 10px #6f7686;
 }
 
 .container{
@@ -29,7 +32,13 @@ body{
 }
 
 #displayContainer{
-    height: 100px;
+    height: 70px;
+    background-color: lightgray;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 10px;
+    font-size: 36px;
+    flex-wrap: wrap;
 }
 
 #displayContainer, button{
@@ -40,14 +49,6 @@ body{
 
 button{
     font-size: 24px;
-}
-
-.operatorButton{
-    background-color: #f45b69;
-}
-
-#displayContainer{
-    font-size: 36px;
 }
 
 #clearAndDeleteContainer{
@@ -72,4 +73,48 @@ button{
 
 .smallButton{
     width: 90px;
+}
+
+.smallButton, #displayContainer{
+    background-color: #efefef; 
+}
+
+.operatorButton, 
+#clearButton, 
+#deleteButton
+{
+    background-color: #e3d0d8;
+}
+
+button:hover{
+    background-color: #d8d6d6;
+}
+
+#deleteButton:hover, 
+#clearButton:hover, 
+.operatorButton:hover
+{
+    background-color: #d8c4cc;
+}
+
+button:active{
+    background-color: #bdbaba; 
+}
+
+#deleteButton:active, 
+#clearButton:active, 
+.operatorButton:active
+{
+    background-color: #c2adb6;
+}
+
+#footer{
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 24px;
 }
