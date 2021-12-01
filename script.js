@@ -1,40 +1,39 @@
 function add(a, b){
     return a + b;
 }
-console.log(add(5, 10));
 
 function subtract(a, b){
     return a - b;
 }
-console.log(subtract(10, 5));
 
 function multiply(a, b){
     return a * b;
 }
-console.log(multiply(10, 5));
 
 function divide(a, b){
     return a / b;
 }
-console.log(divide(10, 5));
 
 function operate(a, b, c){
     if(a === '+'){
         return add(b, c);
     }else if(a === '-'){
         return subtract(b, c);
-    }else if(a === '*'){
+    }else if(a === 'x'){
         return multiply(b, c);
-    }else if(a === '/'){
+    }else if(a === '÷'){
         return divide(b, c);
     }else{
         return;
     }
 }
-console.log(operate('*', 5, 5));
 
 let displayContainer = document.getElementById('displayContainer');
 let displayValue = '';
+let operator = '';
+let firstNum = null;
+let secondNum = null;
+let operatorCounter = null;
 
 let clearButton = document.getElementById('clearButton');
 let deleteButton = document.getElementById('deleteButton');
@@ -79,7 +78,10 @@ nineButton.addEventListener('click', function(){
     addInput('9');
 });
 divideButton.addEventListener('click', function(){
+    firstNum = displayValue;
+    operator = '÷';
     addInput('÷');
+    displayValue = '';
 });
 fourButton.addEventListener('click', function(){
     addInput('4');
@@ -91,7 +93,10 @@ sixButton.addEventListener('click', function(){
     addInput('6');
 });
 multiplyButton.addEventListener('click', function(){
+    firstNum = displayValue;
+    operator = 'x';
     addInput('x');
+    displayValue = '';
 });
 oneButton.addEventListener('click', function(){
     addInput('1');
@@ -103,7 +108,10 @@ threeButton.addEventListener('click', function(){
     addInput('3');
 });
 subtractButton.addEventListener('click', function(){
+    firstNum = displayValue;
+    operator = '-';
     addInput('-');
+    displayValue = '';
 });
 zeroButton.addEventListener('click', function(){
     addInput('0');
@@ -111,9 +119,25 @@ zeroButton.addEventListener('click', function(){
 decimalPointButton.addEventListener('click', function(){
     addInput('.');
 });
-// equalsButton.addEventListener('click', );
+equalsButton.addEventListener('click', function(){
+    secondNum = displayValue;
+    if (operator === '÷' || secondNum === '0'){
+        displayContainer.textContent = '';
+        displayContainer.append('Nope. Hit clear and try again.')
+        return;
+    }
+    displayValue = operate(operator, Number(firstNum), Number(secondNum));
+    displayContainer.textContent = "";
+    console.log(displayValue);
+    displayContainer.append(displayValue);
+    console.log(firstNum);
+    console.log(secondNum);
+});
 addButton.addEventListener('click', function(){
+    firstNum = displayValue;
+    operator = '+';
     addInput('+');
+    displayValue = '';
 });
 
 
