@@ -61,8 +61,8 @@ let decimalCounter = 0;
 //adds input to the display
 function addInput(button){
     displayValue += button;
-    displayContainer.append(button);
-    console.log(displayValue);
+    //displayContainer.append(button);
+    displayContainer.innerHTML += button;
 }
 
 //clears the display and resets variables
@@ -95,12 +95,11 @@ function equals(){
     if (operator === '÷' && secondNum === '0'){
         displayContainer.textContent = '';
         alert('Dividing by 0 could cause the universe to implode. Please try again.')
-        clear();
+        displayContainer.innerHTML = 'Hit clear and try again';
         return;
     }
     displayValue = operate(operator, Number(firstNum), Number(secondNum));
     if(displayValue % 1 != 0){
-        console.log(displayValue);
         countDecimals(displayValue);
         if(decimalCounter > 3){    
             displayValue = Number(displayValue).toFixed(3);
@@ -112,7 +111,11 @@ function equals(){
 }
 
 //checks if you've already put an operator, if so shows result before adding another
+//also checks if no displayValue to prevent adding a different operator after the
 function operatorButton(operatorButtonSelection){
+    if(displayValue === ''){
+        return;
+    }
     if(operatorCounter > 0){
         equals();
     }

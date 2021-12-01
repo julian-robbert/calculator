@@ -32,13 +32,13 @@ body{
 }
 
 #displayContainer{
+    overflow: auto;
     height: 75px;
     background-color: lightgray;
     justify-content: flex-end;
     align-items: flex-end;
     padding: 10px;
     font-size: 36px;
-    flex-wrap: wrap;
 }
 
 #displayContainer, button{
