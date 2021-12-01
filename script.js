@@ -33,7 +33,8 @@ let displayValue = '';
 let operator = '';
 let firstNum = null;
 let secondNum = null;
-let operatorCounter = null;
+let operatorCounter = 0;
+let decimalCounter = 0;
 
 let clearButton = document.getElementById('clearButton');
 let deleteButton = document.getElementById('deleteButton');
@@ -57,13 +58,15 @@ let addButton = document.getElementById('addButton');
 function addInput(button){
     displayValue += button;
     displayContainer.append(button);
-    console.log(displayValue);
 }
 
 function clear(){
     displayValue = '';
     displayContainer.textContent = "";
-    console.log(displayValue);
+}
+
+function countDecimals(value){
+    decimalCounter = value.toString().split(".")[1].length || 0; 
 }
 
 // deleteButton.addEventListener('click', );
@@ -121,17 +124,21 @@ decimalPointButton.addEventListener('click', function(){
 });
 equalsButton.addEventListener('click', function(){
     secondNum = displayValue;
-    if (operator === '÷' || secondNum === '0'){
+    if (operator === '÷' && secondNum === '0'){
         displayContainer.textContent = '';
         displayContainer.append('Nope. Hit clear and try again.')
         return;
     }
     displayValue = operate(operator, Number(firstNum), Number(secondNum));
+    //check if answer has a decimal point, counts how many. if more than 5, round up.
+    if(displayValue % 1 != 0){
+        countDecimals(displayValue);
+        if(decimalCounter > 5){    
+            displayValue = Number(displayValue).toFixed(5);
+        }
+    }
     displayContainer.textContent = "";
-    console.log(displayValue);
     displayContainer.append(displayValue);
-    console.log(firstNum);
-    console.log(secondNum);
 });
 addButton.addEventListener('click', function(){
     firstNum = displayValue;
