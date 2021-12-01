@@ -1,3 +1,4 @@
+//simple operation functions
 function add(a, b){
     return a + b;
 }
@@ -28,14 +29,7 @@ function operate(a, b, c){
     }
 }
 
-let displayContainer = document.getElementById('displayContainer');
-let displayValue = '';
-let operator = '';
-let firstNum = null;
-let secondNum = null;
-let operatorCounter = 0;
-let decimalCounter = 0;
-
+//getting the HTML elements we need to manipulate
 let clearButton = document.getElementById('clearButton');
 let deleteButton = document.getElementById('deleteButton');
 let sevenButton = document.getElementById('sevenButton');
@@ -55,36 +49,107 @@ let decimalPointButton = document.getElementById('decimalPointButton');
 let equalsButton = document.getElementById('equalsButton');
 let addButton = document.getElementById('addButton');
 
+//declaring all the global variables used below
+let displayContainer = document.getElementById('displayContainer');
+let displayValue = '';
+let operator = '';
+let firstNum = null;
+let secondNum = null;
+let operatorCounter = 0;
+let decimalCounter = 0;
+
+//adds input to the display
 function addInput(button){
     displayValue += button;
     displayContainer.append(button);
+    console.log(displayValue);
 }
 
+//clears the display and resets variables
 function clear(){
     displayValue = '';
-    displayContainer.textContent = "";
+    firstNum = null;
+    secondNum = null;
+    displayContainer.textContent = '';
+    operatorCounter = 0;
+    decimalCounter = 0;
 }
 
+//counts how many decimal places a number goes to
 function countDecimals(value){
     decimalCounter = value.toString().split(".")[1].length || 0; 
 }
 
-// deleteButton.addEventListener('click', );
+/*
+checks if the display is empty or there are no operators, in which case won't work
+sets the second number to displayValue (which was changed after hitting and operator)
+checks for dividing by 0
+operates on firtNum and secondNum based on which operator button was pushed
+checks if answer has a decimal point, counts how many. if more than 3, round up.
+*/
+function equals(){
+    if(displayValue === '' || operatorCounter === 0){
+        return;
+    }
+    secondNum = displayValue;
+    if (operator === '÷' && secondNum === '0'){
+        displayContainer.textContent = '';
+        alert('Dividing by 0 could cause the universe to implode. Please try again.')
+        clear();
+        return;
+    }
+    displayValue = operate(operator, Number(firstNum), Number(secondNum));
+    if(displayValue % 1 != 0){
+        console.log(displayValue);
+        countDecimals(displayValue);
+        if(decimalCounter > 3){    
+            displayValue = Number(displayValue).toFixed(3);
+        }
+    }
+    displayContainer.textContent = "";
+    displayContainer.append(displayValue);
+    operatorCounter = 0;
+}
+
+//checks if you've already put an operator, if so shows result before adding another
+function operatorButton(operatorButtonSelection){
+    if(operatorCounter > 0){
+        equals();
+    }
+    firstNum = displayValue;
+    operator = operatorButtonSelection;
+    addInput(operatorButtonSelection);
+    displayValue = '';
+    operatorCounter++;
+}
+
+//operator buttons
+divideButton.addEventListener('click', function(){
+    operatorButton('÷');
+});
+multiplyButton.addEventListener('click', function(){
+    operatorButton('x');
+});
+subtractButton.addEventListener('click', function(){
+    operatorButton('-');
+});
+addButton.addEventListener('click', function(){
+    operatorButton('+');
+});
+
+//special buttons
+equalsButton.addEventListener('click', equals);
 clearButton.addEventListener('click', clear);
+
+//regular number input buttons
 sevenButton.addEventListener('click', function(){
     addInput('7');
-} );
+});
 eightButton.addEventListener('click', function(){
     addInput('8');
 });
 nineButton.addEventListener('click', function(){
     addInput('9');
-});
-divideButton.addEventListener('click', function(){
-    firstNum = displayValue;
-    operator = '÷';
-    addInput('÷');
-    displayValue = '';
 });
 fourButton.addEventListener('click', function(){
     addInput('4');
@@ -95,12 +160,6 @@ fiveButton.addEventListener('click', function(){
 sixButton.addEventListener('click', function(){
     addInput('6');
 });
-multiplyButton.addEventListener('click', function(){
-    firstNum = displayValue;
-    operator = 'x';
-    addInput('x');
-    displayValue = '';
-});
 oneButton.addEventListener('click', function(){
     addInput('1');
 });
@@ -110,41 +169,9 @@ twoButton.addEventListener('click', function(){
 threeButton.addEventListener('click', function(){
     addInput('3');
 });
-subtractButton.addEventListener('click', function(){
-    firstNum = displayValue;
-    operator = '-';
-    addInput('-');
-    displayValue = '';
-});
 zeroButton.addEventListener('click', function(){
     addInput('0');
 });
 decimalPointButton.addEventListener('click', function(){
     addInput('.');
 });
-equalsButton.addEventListener('click', function(){
-    secondNum = displayValue;
-    if (operator === '÷' && secondNum === '0'){
-        displayContainer.textContent = '';
-        displayContainer.append('Nope. Hit clear and try again.')
-        return;
-    }
-    displayValue = operate(operator, Number(firstNum), Number(secondNum));
-    //check if answer has a decimal point, counts how many. if more than 5, round up.
-    if(displayValue % 1 != 0){
-        countDecimals(displayValue);
-        if(decimalCounter > 5){    
-            displayValue = Number(displayValue).toFixed(5);
-        }
-    }
-    displayContainer.textContent = "";
-    displayContainer.append(displayValue);
-});
-addButton.addEventListener('click', function(){
-    firstNum = displayValue;
-    operator = '+';
-    addInput('+');
-    displayValue = '';
-});
-
-

@@ -51,7 +51,7 @@ button{
     font-size: 24px;
 }
 
-#clearAndDeleteContainer{
+#clearAndMysteryContainer{
     height: 70px;
     gap: 10px;
 }
@@ -66,7 +66,7 @@ button{
 }
 
 #clearButton,
-#deleteButton
+#mysteryButton
 {
     width: 186.5px;
 }
@@ -81,7 +81,7 @@ button{
 
 .operatorButton, 
 #clearButton, 
-#deleteButton
+#mysteryButton
 {
     background-color: #e3d0d8;
 }
@@ -90,7 +90,7 @@ button:hover{
     background-color: #d8d6d6;
 }
 
-#deleteButton:hover, 
+#mysteryButton:hover, 
 #clearButton:hover, 
 .operatorButton:hover
 {
@@ -101,7 +101,7 @@ button:active{
     background-color: #bdbaba; 
 }
 
-#deleteButton:active, 
+#mysteryButton:active, 
 #clearButton:active, 
 .operatorButton:active
 {
